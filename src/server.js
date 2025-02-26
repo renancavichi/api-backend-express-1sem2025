@@ -1,6 +1,7 @@
 // importacao do express
 // const express = require('express')
 import express from 'express'
+
 import userRouter from './routers/userRouter.js'
 import productRouter from './routers/productRouter.js'
 
