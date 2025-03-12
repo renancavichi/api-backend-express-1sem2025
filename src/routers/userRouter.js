@@ -9,7 +9,7 @@ import editNameUserController from '../controllers/user/editNameUserController.j
 const router = express.Router()
 
 router.get('/list', listUserController)
-router.get('/', getUserController)
+router.get('/:id', getUserController)
 router.post('/', createUserController)
 router.put('/', updateUserController)
 router.delete('/', deleteUserController)

@@ -1,5 +1,18 @@
-export default function getUserController(req, res) {
+import { getById } from "../../models/userModel.js"
+
+export default async function getUserController(req, res) {
+
+    const { id } = req.params
+
+    const result = await getById(+id)
+
+    if(!result){
+        return res.status(404).json({
+            error: 'Usuário não encontrado'
+        })
+    }
+
     return res.json({
-        message: "Resposta do Router GET /user/"
+        user: result
     })
 }
