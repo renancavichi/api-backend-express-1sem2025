@@ -11,8 +11,8 @@ const router = express.Router()
 router.get('/list', listUserController)
 router.get('/:id', getUserController)
 router.post('/', createUserController)
-router.put('/', updateUserController)
-router.delete('/', deleteUserController)
-router.patch('/', editNameUserController)
+router.put('/:id', updateUserController)
+router.delete('/:id', deleteUserController)
+router.patch('/nome/:id', editNameUserController)
 
 export default router

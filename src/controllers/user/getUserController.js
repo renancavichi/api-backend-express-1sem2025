@@ -13,6 +13,7 @@ export default async function getUserController(req, res) {
     }
 
     return res.json({
+        message: "Usuário encontrado com sucesso",
         user: result
     })
 }
