@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "API Backend Exemplo de Aula",
   "main": "src/server.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "prisma:push": "npx prisma db push",
+    "prisma:generate": "npx prisma generate"
   },
   "keywords": [
     "api",
@@ -17,6 +19,10 @@
   "author": "Renan Cavichi",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^6.5.0",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.5.0"
   }
 }
