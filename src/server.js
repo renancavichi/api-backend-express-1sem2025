@@ -1,7 +1,6 @@
 // importacao do express
-// const express = require('express')
+// const express = require('express') <- Exemplo de importação com require, mudamos para "import" no package.json type: "module"
 import express from 'express'
-
 import userRouter from './routers/userRouter.js'
 import productRouter from './routers/productRouter.js'
 import cors from 'cors'
