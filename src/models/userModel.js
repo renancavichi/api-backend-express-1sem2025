@@ -42,7 +42,13 @@ export const userValidator = (user, partial = null) => {
 
 export async function create(user){
     const result = await prisma.user.create({
-        data: user
+        data: user,
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            avatar: true
+        }
     })
     return result
 }

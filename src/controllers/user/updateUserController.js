@@ -1,10 +1,20 @@
-import { update } from "../../models/userModel.js"
+import { update, userValidator } from "../../models/userModel.js"
 
 export default async function(req, res) {
     const { id } = req.params
     const user = req.body
+    user.id = +id
 
-    const result = await update(+id, user)
+    const { success, error, data } = userValidator(user)
+
+    if(!success){
+        return res.status(400).json({
+            message: "Erro ao editar usuário!",
+            errors: error.flatten().fieldErrors
+        })
+    }
+
+    const result = await update(data.id, user)
 
     if(!result){
         return res.status(404).json({
