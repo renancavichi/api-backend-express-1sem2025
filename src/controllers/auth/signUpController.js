@@ -1,6 +1,7 @@
 import { create, userValidator } from "../../models/userModel.js"
+import bcrypt from 'bcrypt'
 
-export default async function (req, res, next){
+export default async function signUpController(req, res, next){
     try{
         //recebe os dados do usuário para ser cadastrado
         const user = req.body
@@ -15,6 +16,8 @@ export default async function (req, res, next){
                 errors: error.flatten().fieldErrors
             })
         }
+
+        data.pass = bcrypt.hashSync(data.pass, 10)
 
         // se os dados forem válidos, chama a função create do model
         const result = await create(data)

@@ -1,6 +1,7 @@
 // const express = require('express') <- Exemplo de importação com require, mudamos para "import" no package.json type: "module"
 // importacao do pacote express
 import express from 'express'
+import authRouter from './routers/authRouter.js'
 import userRouter from './routers/userRouter.js'
 import productRouter from './routers/productRouter.js'
 import { logger } from './middlewares/logger.js'
@@ -20,6 +21,7 @@ app.use(express.json()) // middleware que lê o json e grava o objeto no req.bod
 
 // criando a rota get no endereço / (raiz: http://localhost:3000/) 
 app.get('/', welcomeController)
+app.use('/auth', authRouter) // todas as rotas que começam com /auth vão para o authRouter
 app.use('/user', userRouter)
 app.use('/product', productRouter)
 app.use('*', notFoundController)
