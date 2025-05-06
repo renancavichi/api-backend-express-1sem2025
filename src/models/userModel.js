@@ -80,6 +80,15 @@ export async function getById(id){
     return result
 }
 
+export async function getByEmail(email){
+    const result = await prisma.user.findUnique({
+        where: {
+            email
+        }
+    })
+    return result
+}
+
 export async function remove(id){
     const result = await prisma.user.delete({
         where: {
