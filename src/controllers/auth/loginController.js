@@ -1,5 +1,6 @@
 import { userValidator, getByEmail } from "../../models/userModel.js"
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 export default async function loginController(req, res, next){
     try{
@@ -33,23 +34,28 @@ export default async function loginController(req, res, next){
             })
         }
 
-        //... continua na próxima aula criar o accesssToken e o refreshToken
-        
-        // se a criação do usuário for bem sucedida, retorna o usuário criado
-        return res.status(201).json({
-            message: "Usuário criado com sucesso!",
-            user: result
-        })
-    } catch(error){
-        if(error?.code === "P2002" && error?.meta?.target === "user_email_key"){
-            return res.status(400).json({
-                message: "Erro ao criar usuário!",
-                errors: {
-                    email: ["Email já cadastrado!"]
-                }
-            })
+        // dados para guardar no token (payload)
+        const payload = {
+            id: result.id,
         }
 
+        const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '15m' })
+        const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3d' })
+        
+        res.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 3 * 24 * 60 * 60 * 1000 }) // 3 dias
+
+        return res.status(200).json({
+            message: "Login realizado com sucesso!",
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            user: {
+                id: result.id,
+                name: result.name,
+                email: result.email,
+                avatar: result.avatar
+            }
+        })
+    } catch(error){
         next(error)
     }
 }
