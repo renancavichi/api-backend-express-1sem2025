@@ -60,7 +60,7 @@
     - ✅ Criação do Midddleware de Log
     - ✅ Criação do Handler de Erros (Trata exceções de erros)
     - ✅ 404 Not Found (Rota não encontrada)
-    - JWT (JSON Web Token)
+    - ✅ JWT (JSON Web Token)
     - Login e Logout
     - Autenticação e Autorização (Rotas protegidas)
 

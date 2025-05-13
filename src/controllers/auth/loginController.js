@@ -1,4 +1,5 @@
 import { userValidator, getByEmail } from "../../models/userModel.js"
+import { create } from "../../models/sessionModel.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -39,8 +40,10 @@ export default async function loginController(req, res, next){
             id: result.id,
         }
 
+        const sessionResult = await create(result.id, req.headers['user-agent'])
+
         const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '15m' })
-        const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3d' })
+        const refreshToken = jwt.sign({...payload, sessionId: sessionResult.id}, process.env.JWT_SECRET, { expiresIn: '3d' })
         
         res.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 3 * 24 * 60 * 60 * 1000 }) // 3 dias
 

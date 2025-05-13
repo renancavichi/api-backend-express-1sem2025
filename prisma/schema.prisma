@@ -19,4 +19,13 @@ model user {
   email     String   @db.VarChar(255) @unique
   pass      String   @db.VarChar(255)
   avatar    String?  @db.Text
+  sessions  session[]
+}
+
+model session {
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  client    String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  user      user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
