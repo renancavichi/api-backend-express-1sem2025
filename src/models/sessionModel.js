@@ -8,3 +8,13 @@ export async function create(userId, client){
     })
     return result
 }
+
+export async function remove(sessionId, userId){
+    const result = await prisma.session.delete({
+        where: {
+            id: sessionId,
+            user_id: userId
+        }
+    })
+    return result
+}

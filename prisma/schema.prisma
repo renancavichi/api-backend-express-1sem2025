@@ -27,5 +27,6 @@ model session {
   user_id   Int
   client    String   @db.VarChar(255)
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   user      user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }

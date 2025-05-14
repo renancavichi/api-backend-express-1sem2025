@@ -9,6 +9,7 @@ import cors from 'cors'
 import { errorsHandler } from './middlewares/errorsHandler.js'
 import welcomeController from './controllers/welcomeController.js'
 import notFoundController from './controllers/notFoundController.js'
+import cookieParser from 'cookie-parser'
 //import { loggerBody } from './middlewares/loggerBody.js'
 
 // cria o objeto app que tem todas as funções do express
@@ -17,6 +18,7 @@ const app = express()
 app.use(logger) // Meu middleware de log 
 app.use(cors()) // middleware para liberar o cors do frontend web
 app.use(express.json()) // middleware que lê o json e grava o objeto no req.body
+app.use(cookieParser()) // middleware que lê os cookies e grava o objeto no req.cookies
 //app.use(loggerBody)
 
 // criando a rota get no endereço / (raiz: http://localhost:3000/) 
