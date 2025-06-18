@@ -6,6 +6,12 @@ export default async function(req, res, next) {
         const user = req.body
         user.id = +id
 
+        if(user.id !== req.userLogged.id){
+            return res.status(403).json({
+                message: "Você não tem permissão para editar este usuário!"
+            })
+        }
+
         const { success, error, data } = userValidator(user, {pass: true})
 
         if(!success){

@@ -10,6 +10,7 @@ import { errorsHandler } from './middlewares/errorsHandler.js'
 import welcomeController from './controllers/welcomeController.js'
 import notFoundController from './controllers/notFoundController.js'
 import cookieParser from 'cookie-parser'
+import { auth } from './middlewares/auth.js'
 //import { loggerBody } from './middlewares/loggerBody.js'
 
 // cria o objeto app que tem todas as funções do express
@@ -24,7 +25,7 @@ app.use(cookieParser()) // middleware que lê os cookies e grava o objeto no req
 // criando a rota get no endereço / (raiz: http://localhost:3000/) 
 app.get('/', welcomeController)
 app.use('/auth', authRouter) // todas as rotas que começam com /auth vão para o authRouter
-app.use('/user', userRouter)
+app.use('/user', auth, userRouter)
 app.use('/product', productRouter)
 app.use('*', notFoundController)
 

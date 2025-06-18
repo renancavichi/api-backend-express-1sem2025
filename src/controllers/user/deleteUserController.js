@@ -5,6 +5,13 @@ export default async function(req, res, next) {
         const { id } = req.params
 
         const user = {id: +id}
+
+        if(user.id !== req.userLogged.id){
+            return res.status(403).json({
+                message: "Você não tem permissão para deletar este usuário!"
+            })
+        }
+
         const {success, error, data} = userValidator(user, {name: true, email: true, pass: true})
 
         if(!success){
